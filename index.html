@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#100f10">
+  <meta name="description" content="Portfolio de Pulso Digital: desarrollo web responsive, sistemas y soluciones digitales. Proyectos reales para negocios y personas.">
+  <title>Pulso Digital - Portfolio</title>
+  <link rel="icon" type="image/png" sizes="128x128" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/favicon.png">
+  <link rel="preload" as="image" href="assets/favicon_parainicio.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body class="intro-sequence">
+  <div class="intro-screen is-visible" id="intro-screen" aria-hidden="true">
+    <div class="intro-lockup">
+      <div class="intro-logo-wrap">
+        <img class="intro-logo-base" src="assets/favicon_parainicio.png" alt="">
+        <span class="intro-logo-sweep" aria-hidden="true"></span>
+      </div>
+      <p class="intro-brand">PULSO <span>DIGITAL</span></p>
+      <p class="intro-tagline">IDEAS EN MOVIMIENTO</p>
+      <span class="intro-progress" aria-hidden="true"></span>
+    </div>
+  </div>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <div class="page-noise" aria-hidden="true"></div>
+
+  <header class="site-header" id="inicio">
+    <div class="container nav-wrap">
+      <a class="brand" href="#inicio" aria-label="Pulso Digital, inicio">
+        <img class="brand-logo" src="assets/pulsodigital_logoblanco.png" alt="Pulso Digital">
+      </a>
+
+      <button class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="main-nav">
+        <span></span><span></span>
+      </button>
+
+      <nav class="main-nav" id="main-nav" aria-label="Navegación principal">
+        <a href="#proyectos">Proyectos</a>
+        <a href="#sobre-mi">Sobre mí</a>
+        <a href="#contacto" class="nav-contact">Contacto <span aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido">
+    <section class="hero section-shell">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="eyebrow-line"></span> PULSO DIGITAL · DESARROLLO WEB</p>
+          <h1>Ideas reales.<br><span class="highlight">Soluciones digitales.</span></h1>
+          <p class="hero-description">Creamos páginas web, tiendas y soluciones digitales que se adaptan a cada pantalla. Diseños pensados para verse bien tanto en una computadora como en un celular.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#proyectos">Explorar proyectos <span aria-hidden="true">↘</span></a>
+            <a class="text-link" href="#contacto">Hablemos de tu idea <span aria-hidden="true">→</span></a>
+          </div>
+          <div class="hero-meta">
+            <span class="status-dot"></span>
+            <span>6 proyectos seleccionados</span>
+            <span class="meta-divider">/</span>
+            <span>Web · E-commerce · Software</span>
+          </div>
+        </div>
+        <div class="hero-art device-art" aria-label="Diseños web adaptables a computadoras y celulares">
+          <div class="device-glow" aria-hidden="true"></div>
+          <div class="device-stage">
+            <div class="laptop-device" aria-hidden="true">
+              <div class="laptop-screen">
+                <div class="mock-browser-bar"><i></i><i></i><i></i><span>pulsodigital.com</span></div>
+                <div class="mock-webpage">
+                  <div class="mock-web-header">
+                    <img class="mock-web-logo" src="assets/pulsodigital-logo.png" alt="Pulso Digital">
+                    <div class="mock-web-lines"><b></b><i></i><i></i></div>
+                  </div>
+                  <div class="mock-web-hero"><span></span><div><b></b><i></i><i></i><em></em></div></div>
+                  <div class="mock-web-cards"><i></i><i></i><i></i></div>
+                </div>
+              </div>
+              <div class="laptop-base"></div>
+            </div>
+            <div class="phone-device" aria-hidden="true">
+              <div class="phone-speaker"></div>
+              <div class="phone-screen">
+                <div class="phone-topline"><img class="phone-brand-logo" src="assets/pulsodigital-logo.png" alt="Pulso Digital"><i></i><i></i></div>
+                <div class="phone-hero-line"></div><div class="phone-hero-line short"></div>
+                <div class="phone-image-block"></div>
+                <div class="phone-text-line"></div><div class="phone-text-line short"></div>
+                <div class="phone-button"></div>
+                <div class="phone-mini-cards"><i></i><i></i></div>
+              </div>
+            </div>
+          </div>
+          <div class="device-caption"><span class="caption-line"></span><span>DISEÑO RESPONSIVE · PC + MÓVIL</span></div>
+          <div class="device-note"><span class="device-note-icon">↔</span><span><strong>Una web, todas las pantallas</strong><small>Experiencia adaptable y accesible.</small></span></div>
+        </div>
+      </div>
+      <div class="hero-bottom-line" aria-hidden="true"></div>
+    </section>
+
+    <section class="projects section-shell" id="proyectos">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow"><span class="eyebrow-line"></span> TRABAJO SELECCIONADO</p>
+            <h2>Proyectos <span class="muted-heading">destacados.</span></h2>
+          </div>
+          <p class="section-intro">Cada proyecto responde a una idea diferente. Elegí uno para conocerlo o abrir su versión online.</p>
+        </div>
+
+        <div class="filter-row" role="group" aria-label="Filtrar proyectos">
+          <button class="filter-button is-active" type="button" data-filter="todos" aria-pressed="true">Todos <span>06</span></button>
+          <button class="filter-button" type="button" data-filter="web" aria-pressed="false">Sitios web</button>
+          <button class="filter-button" type="button" data-filter="comercio" aria-pressed="false">Comercio</button>
+          <button class="filter-button" type="button" data-filter="software" aria-pressed="false">Software</button>
+        </div>
+
+        <div class="project-grid">
+          <article class="project-card project-card-featured" data-category="web">
+            <a class="project-image image-rivaside" href="https://exequielrivadera.github.io/rivasiderecordspage/" target="_blank" rel="noopener noreferrer" aria-label="Abrir demo de Rivaside Records">
+              <img src="assets/rivaside.png" alt="Captura real del sitio web de Rivaside Records">
+              <span class="image-index">01 / 06</span><span class="image-open" aria-hidden="true">↗</span>
+            </a>
+            <div class="project-info">
+              <div class="project-heading-line"><span class="project-type">WEB MUSICAL</span><span class="project-year">SITIO WEB</span></div>
+              <h3>Rivaside Records</h3>
+              <p>Identidad digital para un sello discográfico de música electrónica, con una estética vinculada a su universo musical.</p>
+              <div class="project-tags"><span>Branding</span><span>Diseño web</span><span>Música</span></div>
+              <a class="project-link" href="https://exequielrivadera.github.io/rivasiderecordspage/" target="_blank" rel="noopener noreferrer">Visitar sitio <span aria-hidden="true">↗</span></a>
+            </div>
+          </article>
+
+          <article class="project-card" data-category="web">
+            <a class="project-image image-pulso" href="https://exequielrivadera.github.io/pulsodigitalproyecto/" target="_blank" rel="noopener noreferrer" aria-label="Abrir demo de Pulso Digital">
+              <img src="assets/pulso-digital.png" alt="Captura real del sitio web de Pulso Digital">
+              <span class="image-index">02 / 06</span><span class="image-open" aria-hidden="true">↗</span>
+            </a>
+            <div class="project-info">
+              <div class="project-heading-line"><span class="project-type">MARCA DIGITAL</span><span class="project-year">SITIO WEB</span></div>
+              <h3>Pulso Digital</h3>
+              <p>Web de presentación de servicios de desarrollo web, soporte tecnológico y soluciones digitales.</p>
+              <div class="project-tags"><span>Servicios</span><span>Diseño responsive</span></div>
+              <a class="project-link" href="https://exequielrivadera.github.io/pulsodigitalproyecto/" target="_blank" rel="noopener noreferrer">Visitar sitio <span aria-hidden="true">↗</span></a>
+            </div>
+          </article>
+
+          <article class="project-card" data-category="comercio">
+            <a class="project-image image-distribuidora" href="https://exequielrivadera.github.io/proyectobebidas/" target="_blank" rel="noopener noreferrer" aria-label="Abrir demo de Distribuidora">
+              <img src="assets/distribuidora.png" alt="Captura real de la web de Distribuidora">
+              <span class="image-index">03 / 06</span><span class="image-open" aria-hidden="true">↗</span>
+            </a>
+            <div class="project-info">
+              <div class="project-heading-line"><span class="project-type">COMERCIO</span><span class="project-year">CATÁLOGO</span></div>
+              <h3>Distribuidora</h3>
+              <p>Presentación digital de productos para una distribuidora de bebidas, pensada para facilitar la exploración del catálogo.</p>
+              <div class="project-tags"><span>Catálogo</span><span>Productos</span><span>Comercial</span></div>
+              <a class="project-link" href="https://exequielrivadera.github.io/proyectobebidas/" target="_blank" rel="noopener noreferrer">Explorar demo <span aria-hidden="true">↗</span></a>
+            </div>
+          </article>
+
+          <article class="project-card" data-category="comercio">
+            <a class="project-image image-pasteleria" href="https://exequielrivadera.github.io/pasteleria/" target="_blank" rel="noopener noreferrer" aria-label="Abrir demo de Pastelería">
+              <img src="assets/pasteleria.png" alt="Captura real de la web de Pastelería">
+              <span class="image-index">04 / 06</span><span class="image-open" aria-hidden="true">↗</span>
+            </a>
+            <div class="project-info">
+              <div class="project-heading-line"><span class="project-type">GASTRONOMÍA</span><span class="project-year">SITIO WEB</span></div>
+              <h3>Pastelería</h3>
+              <p>Una experiencia visual para presentar productos de pastelería y comunicar la identidad de un negocio gastronómico.</p>
+              <div class="project-tags"><span>Gastronomía</span><span>Catálogo</span></div>
+              <a class="project-link" href="https://exequielrivadera.github.io/pasteleria/" target="_blank" rel="noopener noreferrer">Visitar sitio <span aria-hidden="true">↗</span></a>
+            </div>
+          </article>
+
+          <article class="project-card" data-category="comercio">
+            <a class="project-image image-indumentaria" href="https://exequielrivadera.github.io/proyectoindumentaria/" target="_blank" rel="noopener noreferrer" aria-label="Abrir demo de Indumentaria">
+              <img src="assets/indumentaria.png" alt="Captura real de la tienda web de Indumentaria">
+              <span class="image-index">05 / 06</span><span class="image-open" aria-hidden="true">↗</span>
+            </a>
+            <div class="project-info">
+              <div class="project-heading-line"><span class="project-type">MODA</span><span class="project-year">TIENDA DEMO</span></div>
+              <h3>Indumentaria</h3>
+              <p>Propuesta de tienda digital para una marca de ropa, con foco en la presentación de prendas y colecciones.</p>
+              <div class="project-tags"><span>Moda</span><span>E-commerce</span><span>Responsive</span></div>
+              <a class="project-link" href="https://exequielrivadera.github.io/proyectoindumentaria/" target="_blank" rel="noopener noreferrer">Explorar demo <span aria-hidden="true">↗</span></a>
+            </div>
+          </article>
+
+          <article class="project-card project-card-software" data-category="software">
+            <button class="project-image image-docucentral docu-open" type="button" data-open-docu aria-label="Ver detalles de DocuCentral">
+              <span class="docu-card-mark">DOCU<span>CENTRAL</span></span><small class="docu-card-caption">LECTURA Y GESTIÓN DE PDF</small>
+              <span class="image-index">06 / 06</span><span class="image-open" aria-hidden="true">＋</span>
+              <span class="software-stamp">APLICACIÓN DE ESCRITORIO</span>
+            </button>
+            <div class="project-info">
+              <div class="project-heading-line"><span class="project-type">SOFTWARE</span><span class="project-year">APP DESKTOP</span></div>
+              <h3>DocuCentral</h3>
+              <p>Aplicación de escritorio orientada a la lectura, organización y resumen de documentos PDF.</p>
+              <div class="project-tags"><span>Python</span><span>PySide6</span><span>PDF</span></div>
+              <button class="project-link button-link" type="button" data-open-docu>Conocer el proyecto <span aria-hidden="true">↗</span></button>
+            </div>
+          </article>
+        </div>
+        <p class="projects-note"><span class="note-mark">i</span> Capturas de los sitios publicados. DocuCentral se presenta como proyecto de software de escritorio, sin demo web pública.</p>
+      </div>
+    </section>
+
+    <section class="about-section section-shell" id="sobre-mi">
+      <div class="container about-grid">
+        <div class="about-mark about-logo-panel">
+          <div class="about-identity-cards">
+            <figure class="about-identity-card about-person-card">
+              <img src="assets/claudio-rivadera.jpg" alt="Foto de Claudio Exequiel Rivadera" loading="lazy">
+              <figcaption>Claudio Exequiel</figcaption>
+            </figure>
+            <figure class="about-identity-card about-brand-card">
+              <div class="about-brand-image"><img src="assets/pulsodigital-logo.png" alt="Logo de Pulso Digital" loading="lazy"></div>
+              <figcaption>Pulso Digital</figcaption>
+            </figure>
+          </div>
+          <p class="about-side-note">UN POCO DE MÍ<br><span>La persona detrás de Pulso Digital.</span></p>
+          <span class="about-index" aria-hidden="true">PD / 2026</span>
+        </div>
+        <div class="about-copy">
+          <p class="eyebrow"><span class="eyebrow-line"></span> UN POCO SOBRE MÍ</p>
+          <h2>¡Hola! Soy Claudio<br><span class="muted-heading">Exequiel Rivadera.</span></h2>
+          <p>Soy un apasionado de la tecnología desde pequeño. Siempre me dio curiosidad saber cómo funcionan las cosas, encontrar soluciones y convertir ideas en algo real.</p>
+          <p>Hoy llevo esa curiosidad al mundo de la programación y el desarrollo digital, creando páginas web, sistemas y herramientas que buscan hacerles la vida un poquito más fácil a las personas y los negocios.</p>
+          <p>También soy productor musical, papá y amante del café. Me gusta crear, experimentar, aprender cosas nuevas y meterme en proyectos que me desafíen. Para mí, tanto la música como la programación tienen algo en común: empiezan con una idea y, con paciencia y creatividad, pueden convertirse en algo increíble.</p>
+          <div class="about-signoff">Tecnología, música, familia y café. <span>Esa es un poco mi mezcla.</span></div>
+          <a class="text-link" href="#contacto">¿Tenés una idea? ¡Hablemos! <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-section section-shell" id="contacto">
+      <div class="container contact-panel">
+        <div>
+          <p class="eyebrow"><span class="eyebrow-line"></span> PRÓXIMO PROYECTO</p>
+          <h2>¿Tenés una idea?<br><span class="highlight">La hacemos realidad.</span></h2>
+          <p>Ya sea una web, un sistema o una idea que todavía está tomando forma, escribime y contame qué tenés en mente.</p>
+        </div>
+        <div class="contact-actions">
+          <a class="button button-primary" href="https://wa.me/5493804507584" target="_blank" rel="noopener noreferrer">Escribime por WhatsApp <span aria-hidden="true">↗</span></a>
+          <div class="social-links" aria-label="Redes y opiniones">
+            <a href="https://www.instagram.com/pulsodigital.lr/" target="_blank" rel="noopener noreferrer">Instagram ↗</a>
+            <a href="https://www.linkedin.com/in/claudio-exequiel-rivadera-308611377/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+            <a href="https://www.facebook.com/profile.php?id=61583352606803" target="_blank" rel="noopener noreferrer">Facebook ↗</a>
+            <a href="https://www.google.com/maps/place/Pulso+Digital+LR+-+Servicio+T%C3%A9cnico+de+PC+e+Impresoras/data=!4m2!3m1!1s0x0:0x44eb988b37d756ab?sa=X&ved=1t:2428&ictx=111&cshid=1790713234121948" target="_blank" rel="noopener noreferrer">Opiniones en Google ↗</a>
+          </div>
+        </div>
+        <img class="contact-decoration" src="assets/pulsodigital_logoblanco.png" alt="" aria-hidden="true">
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-ecg" aria-hidden="true"></div>
+    <div class="container footer-wrap">
+      <a class="brand footer-brand" href="#inicio" aria-label="Volver al inicio">
+        <img class="brand-logo" src="assets/pulsodigital_logoblanco.png" alt="Pulso Digital">
+      </a>
+      <p>Desarrollo web y soluciones digitales <span>·</span> La Rioja, Argentina</p>
+      <a class="back-top" href="#inicio">Volver arriba ↑</a>
+    </div>
+    <div class="container footer-bottom"><span>© <span id="current-year">2026</span> Pulso Digital</span><span>Desarrollo web, sistemas y soluciones digitales.</span></div>
+  </footer>
+
+  <dialog class="project-dialog" id="docu-dialog" aria-labelledby="docu-dialog-title">
+    <div class="dialog-top">
+      <span class="dialog-label">PROYECTO DE SOFTWARE</span>
+      <button class="dialog-close" type="button" aria-label="Cerrar ventana" data-close-docu>×</button>
+    </div>
+    <div class="dialog-content">
+      <div class="docu-placeholder"><span>DOCUCENTRAL</span><small>APLICACIÓN DE ESCRITORIO · PYTHON / PYSIDE6</small></div>
+      <p class="eyebrow"><span class="eyebrow-line"></span> APLICACIÓN DE ESCRITORIO</p>
+      <h2 id="docu-dialog-title">DocuCentral</h2>
+      <p>DocuCentral es un proyecto de aplicación de escritorio pensado para facilitar el trabajo con documentos PDF desde una interfaz centralizada.</p>
+      <div class="dialog-feature-grid">
+        <div><span>01</span><strong>Lectura de PDF</strong><small>Extracción y vista previa de texto.</small></div>
+        <div><span>02</span><strong>Resúmenes</strong><small>Espacio para incorporar resúmenes breves.</small></div>
+        <div><span>03</span><strong>Organización</strong><small>Gestión de documentos desde una interfaz de escritorio.</small></div>
+        <div><span>04</span><strong>Privacidad</strong><small>Enfoque de uso local para documentos de trabajo.</small></div>
+      </div>
+      <p class="dialog-note">DocuCentral no tiene una demo web pública. Es una aplicación de escritorio en desarrollo para lectura, organización y resumen de documentos PDF.</p>
+      <button class="button button-primary" type="button" data-close-docu>Cerrar detalles <span aria-hidden="true">×</span></button>
+    </div>
+  </dialog>
+
+  <div class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
