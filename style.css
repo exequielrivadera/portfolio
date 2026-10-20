@@ -952,3 +952,99 @@ body:not(.intro-sequence) .phone-image-block {
 @media (prefers-reduced-motion: reduce) {
   .site-footer.heartbeat-played .footer-ecg { animation: none; opacity: 0; }
 }
+
+
+/* Correcciones específicas para móviles: intro centrada, dispositivos sin solapamientos y sin desborde lateral. */
+@media (max-width: 760px) {
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+  }
+
+  .intro-screen {
+    left: 0;
+    right: 0;
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100svh;
+    place-items: center;
+  }
+
+  .intro-lockup {
+    justify-self: center;
+    align-self: center;
+    width: max-content;
+    max-width: calc(100vw - 32px);
+    margin-inline: auto;
+  }
+
+  .hero,
+  .hero-grid,
+  .device-art {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .hero-grid { overflow-x: clip; }
+
+  /* Reservamos espacio vertical para que la tarjeta y la leyenda no se monten. */
+  .device-art {
+    min-height: 400px;
+    height: auto;
+    justify-content: flex-start;
+    padding-top: 4px;
+    padding-bottom: 18px;
+    overflow: clip;
+  }
+
+  .device-stage {
+    order: 1;
+    width: 100%;
+    max-width: 490px;
+    height: 245px;
+    flex: 0 0 245px;
+    transform: scale(.88);
+    transform-origin: top center;
+    margin-bottom: -8px;
+  }
+
+  .device-note {
+    order: 2;
+    position: relative;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    align-self: flex-start;
+    margin-top: 12px;
+    max-width: 100%;
+  }
+
+  .device-caption {
+    order: 3;
+    position: relative;
+    width: 100%;
+    margin-top: 12px;
+    transform: translateY(0);
+    animation-name: device-caption-enter-mobile;
+  }
+
+  @keyframes device-caption-enter-mobile {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+}
+
+@media (max-width: 520px) {
+  .intro-logo-wrap { width: 112px; height: 112px; }
+  .intro-brand { font-size: 20px; }
+  .device-art { min-height: 390px; margin-inline: 0; }
+  .device-stage { width: 100%; height: 225px; flex-basis: 225px; transform: scale(.84); }
+  .laptop-device { top: 24px; width: 83%; }
+  .phone-device { min-width: 88px; width: 26%; right: 1%; bottom: 1px; }
+  .device-note { margin-top: 10px; padding: 9px 10px; }
+  .device-note strong { font-size: 10px; }
+  .device-note small { font-size: 9px; }
+  .device-caption { margin-top: 10px; font-size: 8px; letter-spacing: .09em; }
+}
