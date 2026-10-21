@@ -488,12 +488,39 @@
       canvas.className = "arcade-game-canvas";
       const ctx = canvas.getContext("2d");
       const controls = document.createElement("div");
-      controls.className = "arcade-touch-controls";
-      const left = arcadeButton("◀", () => { player.x = Math.max(8, player.x - 18); });
-      const fire = arcadeButton("FUEGO", shoot);
-      const right = arcadeButton("▶", () => { player.x = Math.min(450, player.x + 18); });
-      controls.append(left, fire, right);
+      controls.className = "arcade-touch-controls arcade-invaders-controls";
       let player = { x: 232, y: 226 }, bullets = [], enemies = [], score = 0, over = false, lastSpawn = 0, keys = {};
+      const touchHeld = { left: false, right: false, fire: false };
+      const makeHoldButton = (label, actionName, extra = "") => {
+        const btn = arcadeButton(label, () => {}, extra);
+        btn.classList.add("arcade-hold-control");
+        btn.setAttribute("aria-label", actionName === "fire" ? "Mantener para disparar" : actionName === "left" ? "Mantener para mover a la izquierda" : "Mantener para mover a la derecha");
+        const start = (event) => {
+          event.preventDefault();
+          touchHeld[actionName] = true;
+          btn.classList.add("is-pressed");
+          if (event.pointerId !== undefined && btn.setPointerCapture) {
+            try { btn.setPointerCapture(event.pointerId); } catch (_) {}
+          }
+          if (actionName === "fire") shoot();
+        };
+        const stop = (event) => {
+          if (event) event.preventDefault();
+          touchHeld[actionName] = false;
+          btn.classList.remove("is-pressed");
+        };
+        btn.addEventListener("pointerdown", start);
+        ["pointerup", "pointercancel", "lostpointercapture"].forEach(type => btn.addEventListener(type, stop));
+        btn.addEventListener("contextmenu", event => event.preventDefault());
+        return btn;
+      };
+      const left = makeHoldButton("◀", "left", "arcade-move-control");
+      const right = makeHoldButton("▶", "right", "arcade-move-control");
+      const fire = makeHoldButton("✦ DISPARAR", "fire", "arcade-fire-control");
+      const moveGroup = document.createElement("div");
+      moveGroup.className = "arcade-invaders-movement";
+      moveGroup.append(left, right);
+      controls.append(moveGroup, fire);
       function spawn() { enemies.push({ x: 18 + Math.random() * 430, y: -12, speed: 0.55 + Math.random() * 0.65 }); }
       function shoot() { if (!over) bullets.push({ x: player.x + 7, y: player.y - 7 }); }
       for (let i = 0; i < 5; i++) enemies.push({ x: 35 + i * 88, y: 28 + (i % 2) * 24, speed: .35 + i * .06 });
@@ -506,12 +533,14 @@
       window.addEventListener("keydown", keydown);
       window.addEventListener("keyup", keyup);
       let previous = performance.now();
+      let lastTouchShot = 0;
       function draw(now) {
         if (over || !arcadeDialog.open) return;
         const dt = Math.min(34, now - previous); previous = now;
-        if (keys.arrowleft || keys.a) player.x -= .22 * dt;
-        if (keys.arrowright || keys.d) player.x += .22 * dt;
+        if (keys.arrowleft || keys.a || touchHeld.left) player.x -= .22 * dt;
+        if (keys.arrowright || keys.d || touchHeld.right) player.x += .22 * dt;
         player.x = Math.max(5, Math.min(462, player.x));
+        if (touchHeld.fire && now - lastTouchShot > 230) { shoot(); lastTouchShot = now; }
         if (now - lastSpawn > 1700) { spawn(); lastSpawn = now; }
         bullets.forEach(b => b.y -= .42 * dt);
         enemies.forEach(e => e.y += e.speed * dt * .045);
@@ -556,13 +585,43 @@
     let snake = [{x:8,y:6},{x:7,y:6},{x:6,y:6}], dir = {x:1,y:0}, nextDir = {x:1,y:0};
     let food = {x:13,y:6}, score = 0, over = false, last = 0, accumulator = 0;
     const controls = document.createElement("div");
-    controls.className = "arcade-touch-controls";
+    controls.className = "arcade-touch-controls arcade-snake-controls";
+    const dpad = document.createElement("div");
+    dpad.className = "arcade-snake-dpad";
     const dirs = [
-      ["↑",0,-1],["←",-1,0],["↓",0,1],["→",1,0]
+      ["↑",0,-1,"up"],["←",-1,0,"left"],["↓",0,1,"down"],["→",1,0,"right"]
     ];
-    dirs.forEach(([label,dx,dy]) => controls.append(arcadeButton(label, () => {
-      if (!(dx === -dir.x && dy === -dir.y)) nextDir = {x:dx,y:dy};
-    })));
+    dirs.forEach(([label,dx,dy,name]) => {
+      const btn = arcadeButton(label, () => {
+        if (!(dx === -dir.x && dy === -dir.y)) nextDir = {x:dx,y:dy};
+      }, "arcade-snake-direction");
+      btn.setAttribute("aria-label", `Mover ${name === "up" ? "arriba" : name === "down" ? "abajo" : name === "left" ? "a la izquierda" : "a la derecha"}`);
+      dpad.append(btn);
+    });
+    controls.append(dpad);
+    let swipeStart = null;
+    const swipeDirection = (dx, dy) => {
+      if (Math.abs(dx) > Math.abs(dy)) {
+        const x = dx > 0 ? 1 : -1;
+        if (!(x === -dir.x && 0 === -dir.y)) nextDir = {x, y:0};
+      } else {
+        const y = dy > 0 ? 1 : -1;
+        if (!(0 === -dir.x && y === -dir.y)) nextDir = {x:0, y};
+      }
+    };
+    canvas.addEventListener("pointerdown", (event) => {
+      if (event.pointerType === "mouse") return;
+      swipeStart = {x:event.clientX, y:event.clientY};
+      event.preventDefault();
+    }, {passive:false});
+    canvas.addEventListener("pointerup", (event) => {
+      if (!swipeStart) return;
+      const dx = event.clientX - swipeStart.x, dy = event.clientY - swipeStart.y;
+      if (Math.abs(dx) + Math.abs(dy) > 18) swipeDirection(dx, dy);
+      swipeStart = null;
+      event.preventDefault();
+    }, {passive:false});
+    canvas.addEventListener("pointercancel", () => { swipeStart = null; });
     function placeFood() {
       do { food = {x:Math.floor(Math.random()*20), y:Math.floor(Math.random()*15)}; }
       while (snake.some(part => part.x===food.x && part.y===food.y));
