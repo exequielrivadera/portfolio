@@ -237,6 +237,65 @@
       </div>
     </section>
 
+
+    <section class="arcade-section section-shell" id="arcade">
+      <div class="container">
+        <div class="section-heading arcade-heading">
+          <div>
+            <p class="eyebrow"><span class="eyebrow-line"></span> INSERT COIN · PRESS START</p>
+            <h2>Un poco de código.<br><span class="muted-heading">Un poco de juego.</span></h2>
+          </div>
+          <p>Esto es un poco de lo que podemos hacer. Abrí un minijuego y divertite.</p>
+        </div>
+
+        <div class="arcade-grid" aria-label="Minijuegos por tecnología">
+          <button class="arcade-card" type="button" data-game="snake" data-language="Python">
+            <span class="arcade-card-top"><span class="arcade-led"></span> GAME 01</span>
+            <span class="arcade-logo arcade-python" aria-hidden="true">Py</span>
+            <span class="arcade-card-title">Pixel Snake</span>
+            <span class="arcade-card-description">Comé píxeles, crecé y evitá chocarte.</span>
+            <span class="arcade-card-bottom">PYTHON <span>JUGAR ↗</span></span>
+          </button>
+          <button class="arcade-card" type="button" data-game="reaction" data-language="JavaScript">
+            <span class="arcade-card-top"><span class="arcade-led"></span> GAME 02</span>
+            <span class="arcade-logo arcade-js" aria-hidden="true">JS</span>
+            <span class="arcade-card-title">Pulso de reacción</span>
+            <span class="arcade-card-description">Esperá la señal roja y reaccioná rápido.</span>
+            <span class="arcade-card-bottom">JAVASCRIPT <span>JUGAR ↗</span></span>
+          </button>
+          <button class="arcade-card" type="button" data-game="memory" data-language="CSS">
+            <span class="arcade-card-top"><span class="arcade-led"></span> GAME 03</span>
+            <span class="arcade-logo arcade-css" aria-hidden="true">#</span>
+            <span class="arcade-card-title">Pixel Match</span>
+            <span class="arcade-card-description">Encontrá las parejas antes de que se acabe el tiempo.</span>
+            <span class="arcade-card-bottom">CSS <span>JUGAR ↗</span></span>
+          </button>
+          <button class="arcade-card" type="button" data-game="code" data-language="HTML">
+            <span class="arcade-card-top"><span class="arcade-led"></span> GAME 04</span>
+            <span class="arcade-logo arcade-html" aria-hidden="true">&lt;/&gt;</span>
+            <span class="arcade-card-title">Code Breaker</span>
+            <span class="arcade-card-description">Ordená la estructura y desbloqueá el código.</span>
+            <span class="arcade-card-bottom">HTML5 <span>JUGAR ↗</span></span>
+          </button>
+          <button class="arcade-card" type="button" data-game="invaders" data-language="C / C++">
+            <span class="arcade-card-top"><span class="arcade-led"></span> GAME 05</span>
+            <span class="arcade-logo arcade-cpp" aria-hidden="true">C++</span>
+            <span class="arcade-card-title">Pixel Invaders</span>
+            <span class="arcade-card-description">Defendé tu posición y sumá puntos.</span>
+            <span class="arcade-card-bottom">C / C++ <span>JUGAR ↗</span></span>
+          </button>
+          <button class="arcade-card" type="button" data-game="sql" data-language="MySQL">
+            <span class="arcade-card-top"><span class="arcade-led"></span> GAME 06</span>
+            <span class="arcade-logo arcade-sql" aria-hidden="true">DB</span>
+            <span class="arcade-card-title">Detective de datos</span>
+            <span class="arcade-card-description">Encontrá el registro correcto con una consulta.</span>
+            <span class="arcade-card-bottom">MYSQL <span>JUGAR ↗</span></span>
+          </button>
+        </div>
+        <p class="arcade-footnote"><span aria-hidden="true">▸</span> Juegos de demostración creados para el portfolio. No necesitás instalar nada.</p>
+      </div>
+    </section>
+
     <section class="contact-section section-shell" id="contacto">
       <div class="container contact-panel">
         <div>
@@ -269,6 +328,24 @@
     </div>
     <div class="container footer-bottom"><span>© <span id="current-year">2026</span> Pulso Digital</span><span>Desarrollo web, sistemas y soluciones digitales.</span></div>
   </footer>
+
+
+  <dialog class="arcade-dialog" id="arcade-dialog" aria-labelledby="arcade-dialog-title">
+    <div class="arcade-dialog-shell">
+      <div class="arcade-dialog-top">
+        <div class="arcade-dialog-brand"><span class="arcade-led"></span><span> PULSO DIGITAL <span class="arcade-slash">/</span> ARCADE</span></div>
+        <button class="arcade-close" type="button" data-close-arcade aria-label="Cerrar minijuego">×</button>
+      </div>
+      <div class="arcade-dialog-content">
+        <p class="arcade-dialog-kicker" id="arcade-language">MINIJUEGO</p>
+        <h2 id="arcade-dialog-title">Pixel Arcade</h2>
+        <p class="arcade-dialog-instructions" id="arcade-instructions">Prepará tus reflejos.</p>
+        <div class="arcade-game-stage" id="arcade-game-stage" aria-live="polite"></div>
+        <div class="arcade-dialog-actions" id="arcade-dialog-actions"></div>
+        <p class="arcade-dialog-hint" id="arcade-hint">ESC para cerrar · Cada partida dura unos segundos.</p>
+      </div>
+    </div>
+  </dialog>
 
   <dialog class="project-dialog" id="docu-dialog" aria-labelledby="docu-dialog-title">
     <div class="dialog-top">

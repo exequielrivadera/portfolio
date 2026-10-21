@@ -58,3 +58,17 @@ Los tres destellos se vuelven a activar al entrar de nuevo en sus zonas durante 
 
 ### Línea del footer (electrocardiograma)
 Al llegar al footer, un electrocardiograma rojo recorre la línea divisoria de izquierda a derecha (6,2 s), visible por encima y por debajo de ella. Se reproduce una sola vez por carga de página. El efecto está en `.footer-ecg` (style.css) y se activa con la clase `heartbeat-played` desde script.js.
+
+
+## Pulso Arcade
+
+Debajo de la sección “Sobre mí” se añadió una sección de minijuegos retro. Los juegos se abren en una ventana emergente dentro de la página y funcionan localmente en el navegador, sin dependencias externas ni servidor:
+
+- **Python — Pixel Snake:** juego de serpiente con teclado y controles táctiles.
+- **JavaScript — Pulso de reacción:** mide el tiempo de reacción.
+- **CSS — Pixel Match:** juego de memoria con parejas.
+- **HTML — Code Breaker:** ordenar una estructura HTML.
+- **C / C++ — Pixel Invaders:** minijuego arcade de disparos.
+- **MySQL — Detective de datos:** elegir una consulta SQL correcta.
+
+Los juegos son demostraciones interactivas inspiradas en las tecnologías; no ejecutan Python, C/C++ o SQL reales en el navegador. La lógica de cada minijuego está implementada en JavaScript.

@@ -1048,3 +1048,345 @@ body:not(.intro-sequence) .phone-image-block {
   .device-note small { font-size: 9px; }
   .device-caption { margin-top: 10px; font-size: 8px; letter-spacing: .09em; }
 }
+
+
+/* =========================================================
+   PULSO ARCADE — sección de minijuegos retro
+   ========================================================= */
+.arcade-section {
+  padding-block: clamp(76px, 9vw, 132px);
+  position: relative;
+}
+.arcade-heading {
+  align-items: end;
+  margin-bottom: 38px;
+}
+.arcade-heading h2 { margin-bottom: 0; }
+.arcade-heading > p {
+  max-width: 390px;
+  color: var(--text-muted, #aaa1a3);
+  font-size: .96rem;
+  line-height: 1.8;
+}
+.arcade-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.arcade-card {
+  appearance: none;
+  min-width: 0;
+  text-align: left;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  min-height: 250px;
+  padding: 21px;
+  overflow: hidden;
+  border: 1px solid rgba(215, 100, 109, .22);
+  border-radius: 5px;
+  background:
+    linear-gradient(145deg, rgba(215,100,109,.065), transparent 54%),
+    repeating-linear-gradient(0deg, transparent 0 5px, rgba(255,255,255,.012) 5px 6px),
+    #111011;
+  transition: border-color .22s ease, transform .22s ease, background-color .22s ease, box-shadow .22s ease;
+}
+.arcade-card::after {
+  content: "";
+  position: absolute;
+  height: 2px;
+  left: 0;
+  right: 100%;
+  bottom: 0;
+  background: #d7646d;
+  box-shadow: 0 0 12px rgba(215,100,109,.8);
+  transition: right .3s ease;
+}
+.arcade-card:hover,
+.arcade-card:focus-visible {
+  transform: translateY(-4px);
+  border-color: rgba(215,100,109,.72);
+  box-shadow: 0 12px 35px rgba(0,0,0,.2), 0 0 22px rgba(189,75,85,.08);
+  outline: none;
+}
+.arcade-card:hover::after,
+.arcade-card:focus-visible::after { right: 0; }
+.arcade-card-top,
+.arcade-card-bottom {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono, monospace);
+  font-size: .65rem;
+  letter-spacing: .1em;
+  color: #958b8e;
+}
+.arcade-led {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  flex: 0 0 7px;
+  border-radius: 50%;
+  background: #d7646d;
+  box-shadow: 0 0 9px rgba(215,100,109,.85);
+}
+.arcade-logo {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  margin-block: 24px 17px;
+  border: 1px solid rgba(215,100,109,.48);
+  background: rgba(215,100,109,.09);
+  color: #f0a0a6;
+  font-family: "Courier New", monospace;
+  font-size: 1.3rem;
+  font-weight: 900;
+  letter-spacing: -.08em;
+  text-shadow: 0 0 12px rgba(215,100,109,.35);
+  clip-path: polygon(0 6px,6px 6px,6px 0,calc(100% - 6px) 0,calc(100% - 6px) 6px,100% 6px,100% calc(100% - 6px),calc(100% - 6px) calc(100% - 6px),calc(100% - 6px) 100%,6px 100%,6px calc(100% - 6px),0 calc(100% - 6px));
+}
+.arcade-card-title {
+  font-weight: 750;
+  font-size: 1.05rem;
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+.arcade-card-description {
+  color: #aaa1a3;
+  font-size: .82rem;
+  line-height: 1.65;
+  min-height: 42px;
+  margin-bottom: 22px;
+}
+.arcade-card-bottom { margin-top: auto; color: #c3b8bb; }
+.arcade-card-bottom > span { color: #e17a83; }
+.arcade-footnote {
+  margin: 23px 0 0;
+  color: #8e8588;
+  font-size: .77rem;
+  letter-spacing: .02em;
+}
+.arcade-footnote span { color: #d7646d; }
+
+/* Modal arcade */
+.arcade-dialog {
+  width: min(720px, calc(100vw - 28px));
+  max-width: 720px;
+  max-height: min(88vh, 850px);
+  padding: 0;
+  border: 1px solid rgba(215,100,109,.48);
+  border-radius: 8px;
+  color: #f7f1f2;
+  background: #100f10;
+  box-shadow: 0 25px 100px rgba(0,0,0,.72), 0 0 35px rgba(189,75,85,.12);
+  overflow: auto;
+}
+.arcade-dialog::backdrop {
+  background: rgba(4,3,4,.82);
+  backdrop-filter: blur(8px);
+}
+.arcade-dialog[open] { animation: arcade-modal-in .24s ease-out both; }
+@keyframes arcade-modal-in {
+  from { opacity: 0; transform: translateY(12px) scale(.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.arcade-dialog-shell {
+  background:
+    repeating-linear-gradient(0deg, transparent 0 4px, rgba(255,255,255,.012) 4px 5px),
+    radial-gradient(ellipse at 50% 0%, rgba(189,75,85,.12), transparent 52%),
+    #100f10;
+}
+.arcade-dialog-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(215,100,109,.22);
+}
+.arcade-dialog-brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #c8bfc1;
+  font: 700 .68rem/1.4 "Courier New", monospace;
+  letter-spacing: .14em;
+}
+.arcade-slash { color: #d7646d; }
+.arcade-close {
+  width: 36px;
+  height: 36px;
+  border: 1px solid #493034;
+  border-radius: 3px;
+  color: #f6e9eb;
+  background: #1a1516;
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+.arcade-close:hover { background: #3a1d22; border-color: #d7646d; }
+.arcade-dialog-content { padding: clamp(18px, 4vw, 30px); }
+.arcade-dialog-kicker {
+  margin: 0 0 8px;
+  color: #d7646d;
+  font: 700 .68rem/1.4 "Courier New", monospace;
+  letter-spacing: .15em;
+}
+.arcade-dialog-content h2 {
+  margin: 0 0 8px;
+  color: #fff7f8;
+  font-size: clamp(1.55rem, 4vw, 2.1rem);
+}
+.arcade-dialog-instructions {
+  margin: 0 0 20px;
+  color: #b6abad;
+  line-height: 1.6;
+  font-size: .9rem;
+}
+.arcade-game-stage {
+  min-height: 235px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 18px;
+  border: 1px solid rgba(215,100,109,.23);
+  border-radius: 4px;
+  background-color: #090909;
+  background-image: linear-gradient(rgba(215,100,109,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(215,100,109,.045) 1px, transparent 1px);
+  background-size: 20px 20px;
+  text-align: center;
+  overflow: hidden;
+}
+.arcade-dialog-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 16px;
+}
+.arcade-btn {
+  border: 1px solid rgba(215,100,109,.6);
+  border-radius: 3px;
+  padding: 11px 16px;
+  background: #251316;
+  color: #fff1f2;
+  font: 700 .78rem/1.2 "Courier New", monospace;
+  letter-spacing: .05em;
+  cursor: pointer;
+  transition: background .18s ease, transform .18s ease, border-color .18s ease;
+}
+.arcade-btn:hover, .arcade-btn:focus-visible {
+  background: #51242b;
+  border-color: #f08a93;
+  outline: 2px solid rgba(215,100,109,.28);
+  outline-offset: 2px;
+}
+.arcade-btn:active { transform: translateY(1px); }
+.arcade-dialog-hint {
+  margin: 15px 0 0;
+  color: #817679;
+  text-align: center;
+  font: .68rem/1.6 "Courier New", monospace;
+}
+.arcade-score {
+  color: #f28b94;
+  font: 800 1.15rem/1.4 "Courier New", monospace;
+}
+.arcade-big-number {
+  color: #fff;
+  font: 900 clamp(2.2rem, 8vw, 4rem)/1 "Courier New", monospace;
+  text-shadow: 0 0 18px rgba(215,100,109,.4);
+}
+.arcade-message { max-width: 430px; color: #c2b8ba; line-height: 1.65; font-size: .9rem; }
+.arcade-pixel-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(48px, 68px));
+  gap: 8px;
+  justify-content: center;
+}
+.arcade-pixel-tile {
+  aspect-ratio: 1;
+  border: 1px solid #573138;
+  border-radius: 2px;
+  background: #211518;
+  color: #f4b0b6;
+  font: 900 1.2rem/1 "Courier New", monospace;
+  cursor: pointer;
+}
+.arcade-pixel-tile.is-open,
+.arcade-pixel-tile.is-matched {
+  background: #54232a;
+  border-color: #d7646d;
+  color: #fff;
+}
+.arcade-pixel-tile:disabled { cursor: default; opacity: 1; }
+.arcade-order-options { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+.arcade-order-token {
+  border: 1px solid #573138;
+  background: #211518;
+  color: #f4b0b6;
+  padding: 10px 12px;
+  font: 700 .8rem "Courier New", monospace;
+  cursor: pointer;
+}
+.arcade-order-token.is-selected { opacity: .35; text-decoration: line-through; }
+.arcade-code-output {
+  width: min(100%, 420px);
+  padding: 16px;
+  border: 1px solid #3e292d;
+  background: #0b0b0b;
+  color: #e58b93;
+  font: .8rem/1.8 "Courier New", monospace;
+  text-align: left;
+  white-space: pre-wrap;
+}
+.arcade-game-canvas {
+  display: block;
+  width: min(100%, 480px);
+  height: auto;
+  image-rendering: pixelated;
+  border: 1px solid #4a2a30;
+  background: #050505;
+  touch-action: none;
+}
+.arcade-touch-controls { display: flex; gap: 10px; justify-content: center; }
+.arcade-touch-controls .arcade-btn { min-width: 58px; min-height: 44px; }
+.arcade-sql-options { display: grid; gap: 8px; width: min(100%, 420px); }
+.arcade-sql-options .arcade-btn { text-align: left; }
+@media (max-width: 900px) {
+  .arcade-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 600px) {
+  .arcade-section { padding-block: 64px; }
+  .arcade-heading { display: block; }
+  .arcade-heading > p { margin-top: 16px; }
+  .arcade-grid { grid-template-columns: 1fr; gap: 11px; }
+  .arcade-card {
+    display: grid;
+    grid-template-columns: 52px minmax(0,1fr);
+    grid-template-rows: auto auto auto auto;
+    column-gap: 13px;
+    align-items: center;
+    min-height: 0;
+    padding: 14px;
+  }
+  .arcade-card-top { grid-column: 1 / -1; margin-bottom: 9px; }
+  .arcade-logo { grid-column: 1; grid-row: 2 / span 2; width: 48px; height: 48px; margin: 0; font-size: 1rem; }
+  .arcade-card-title { grid-column: 2; align-self: end; margin: 0 0 4px; }
+  .arcade-card-description { grid-column: 2; min-height: 0; margin: 0; font-size: .78rem; }
+  .arcade-card-bottom { grid-column: 1 / -1; margin-top: 13px; }
+  .arcade-game-stage { min-height: 205px; padding: 12px 8px; }
+  .arcade-pixel-grid { grid-template-columns: repeat(4, minmax(42px, 58px)); gap: 6px; }
+  .arcade-dialog { width: calc(100vw - 18px); max-height: 92vh; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .arcade-card, .arcade-dialog[open], .arcade-btn { transition: none; animation: none; }
+}
