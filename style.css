@@ -1450,3 +1450,28 @@ body:not(.intro-sequence) .phone-image-block {
   .arcade-snake-dpad { grid-template-columns: repeat(3, minmax(48px, 62px)); }
   .arcade-invaders-controls .arcade-btn { padding-inline: 8px; font-size: .95rem; }
 }
+
+
+/* Logos tecnológicos y pestaña didáctica del arcade */
+.arcade-logo { padding: 8px; }
+.arcade-logo img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.arcade-python img { filter: drop-shadow(0 0 5px rgba(55,118,171,.25)); }
+.arcade-js img { filter: drop-shadow(0 0 5px rgba(247,223,30,.18)); }
+.arcade-modal-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 16px; }
+.arcade-tab { border: 1px solid #493034; border-radius: 3px; padding: 11px 14px; background: #171214; color: #bdb2b5; font: 700 .72rem/1.3 "Courier New", monospace; letter-spacing: .045em; cursor: pointer; }
+.arcade-tab.is-active, .arcade-tab[aria-selected="true"] { border-color: #d7646d; background: #3b1b20; color: #fff1f2; box-shadow: inset 0 -2px #d7646d; }
+.arcade-tab:focus-visible { outline: 2px solid #f08b94; outline-offset: 2px; }
+.arcade-why-panel { min-height: 235px; padding: clamp(18px, 4vw, 28px); border: 1px solid rgba(215,100,109,.28); border-radius: 4px; background: linear-gradient(145deg, rgba(215,100,109,.08), transparent 65%), #090909; color: #d5cacc; line-height: 1.75; }
+.arcade-why-panel[hidden] { display: none !important; }
+.arcade-why-panel h3 { margin: 0 0 12px; color: #fff4f5; font-size: 1.25rem; }
+.arcade-why-panel p { margin: 0 0 15px; }
+.arcade-why-panel h4 { margin: 18px 0 8px; color: #f08b94; font: 800 .78rem/1.4 "Courier New", monospace; letter-spacing: .08em; text-transform: uppercase; }
+.arcade-why-panel ul { display: grid; gap: 7px; margin: 0 0 18px; padding-left: 20px; }
+.arcade-why-panel li::marker { color: #d7646d; }
+.arcade-why-note { padding-top: 12px; border-top: 1px solid rgba(215,100,109,.2); color: #93878a; font-size: .78rem; }
+.arcade-game-stage[hidden], .arcade-dialog-actions[hidden] { display: none !important; }
+@media (max-width: 480px) {
+  .arcade-modal-tabs { display: grid; grid-template-columns: 1fr; }
+  .arcade-tab { min-height: 44px; }
+  .arcade-why-panel { font-size: .88rem; }
+}
