@@ -72,3 +72,10 @@ Debajo de la sección “Sobre mí” se añadió una sección de minijuegos ret
 - **MySQL — Detective de datos:** elegir una consulta SQL correcta.
 
 Los juegos son demostraciones interactivas inspiradas en las tecnologías; no ejecutan Python, C/C++ o SQL reales en el navegador. La lógica de cada minijuego está implementada en JavaScript.
+
+
+### Actualización del arcade
+
+- Las tarjetas de tecnologías usan SVG locales en `assets/tech-logos/`.
+- Cada minijuego incorpora una pestaña educativa que explica qué conceptos del lenguaje o tecnología representa. La lógica interactiva de las demos se ejecuta en JavaScript en el navegador.
+- Pixel Invaders incluye tres niveles progresivos: los enemigos aparecen con más frecuencia y se mueven más rápido, y la nave responde con mayor velocidad. Los objetivos de puntuación son 100, 250 y 450 puntos.

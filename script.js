@@ -10,8 +10,8 @@
     document.body.classList.add("intro-sequence");
     introScreen.classList.add("is-visible");
 
-    const introDuration = prefersReducedMotion ? 900 : 2100;
-    const fadeDuration = prefersReducedMotion ? 0 : 600;
+    const introDuration = prefersReducedMotion ? 900 : 2600;
+    const fadeDuration = prefersReducedMotion ? 0 : 420;
 
     window.setTimeout(() => {
       introScreen.classList.add("is-leaving");
@@ -160,6 +160,39 @@
   const arcadeInstructions = document.querySelector("#arcade-instructions");
   const arcadeActions = document.querySelector("#arcade-dialog-actions");
   const arcadeHint = document.querySelector("#arcade-hint");
+  const arcadeTabPlay = document.querySelector("#arcade-tab-play");
+  const arcadeTabWhy = document.querySelector("#arcade-tab-why");
+  const arcadeWhyPanel = document.querySelector("#arcade-why-panel");
+  const arcadeExplanations = {
+    snake: { title: "Python · Pixel Snake", text: "Python se usa mucho para aprender programación porque su sintaxis es clara y permite concentrarse en la lógica. En un juego como Snake, la lógica debe recordar la posición de cada parte de la serpiente, detectar colisiones, moverla en intervalos regulares y actualizar el puntaje. Esta demo corre en el navegador con JavaScript, pero el mismo tipo de reglas y estructuras se puede programar en Python.", concepts: ["Variables y listas", "Condiciones y colisiones", "Bucles y actualización del estado"] },
+    reaction: { title: "JavaScript · Pulso de reacción", text: "JavaScript permite responder a eventos del usuario y actualizar una página sin recargarla. En este juego controla el inicio de la ronda, espera un tiempo aleatorio, detecta el toque y calcula cuánto tardaste en reaccionar.", concepts: ["Eventos de clic o toque", "Temporizadores", "Medición del tiempo y actualización de la interfaz"] },
+    memory: { title: "CSS · Pixel Match", text: "CSS define la apariencia visual de una interfaz: colores, tamaños, distribución, animaciones y estados de las cartas. La lógica de comparar parejas normalmente se programa con JavaScript; CSS hace que las cartas se vean, se den vuelta y destaquen cuando encontrás una pareja.", concepts: ["Grid y diseño responsive", "Estados visuales", "Transiciones y estilos de cartas"] },
+    code: { title: "HTML · Code Breaker", text: "HTML organiza el contenido de una página mediante elementos y etiquetas. El orden importa porque los elementos se anidan: una etiqueta que se abre dentro de otra debe cerrarse antes que la etiqueta contenedora. Este desafío te enseña a reconocer esa estructura.", concepts: ["Etiquetas de apertura y cierre", "Anidamiento de elementos", "Estructura semántica de una página"] },
+    invaders: { title: "C / C++ · Pixel Invaders", text: "C y C++ se usan en software donde importa controlar con precisión el estado del programa y el rendimiento, incluidos motores y juegos. Un juego de disparos necesita actualizar posiciones, calcular impactos, gestionar puntaje y aumentar la dificultad. Esta versión web usa JavaScript y Canvas para que puedas jugar sin instalar nada, pero ilustra conceptos que también existen en C/C++.", concepts: ["Coordenadas y movimiento", "Detección de colisiones", "Bucle de juego, puntaje y dificultad progresiva"] },
+    sql: { title: "MySQL · Detective de datos", text: "MySQL es un sistema de gestión de bases de datos relacionales y SQL es el lenguaje usado para consultar y modificar los datos. En los casos vas a practicar SELECT para recuperar filas, WHERE para filtrar resultados y ORDER BY para ordenarlos.", concepts: ["SELECT para consultar", "WHERE para filtrar", "ORDER BY para ordenar"] }
+  };
+  let currentArcadeGame = "";
+  function showArcadeTab(tab) {
+    const play = tab === "play";
+    arcadeTabPlay?.classList.toggle("is-active", play);
+    arcadeTabWhy?.classList.toggle("is-active", !play);
+    arcadeTabPlay?.setAttribute("aria-selected", String(play));
+    arcadeTabWhy?.setAttribute("aria-selected", String(!play));
+    arcadeStage.hidden = !play;
+    arcadeActions.hidden = !play;
+    arcadeWhyPanel.hidden = play;
+  }
+  function renderArcadeExplanation(game) {
+    const item = arcadeExplanations[game];
+    if (!item || !arcadeWhyPanel) return;
+    const title = document.createElement("h3"); title.textContent = item.title;
+    const text = document.createElement("p"); text.textContent = item.text;
+    const heading = document.createElement("h4"); heading.textContent = "¿Qué podés aprender?";
+    const list = document.createElement("ul");
+    item.concepts.forEach((concept) => { const li = document.createElement("li"); li.textContent = concept; list.append(li); });
+    const note = document.createElement("p"); note.className = "arcade-why-note"; note.textContent = "Aclaración: los minijuegos están programados en JavaScript para funcionar directamente en el navegador. La tecnología del título es la que se explora y se explica en cada desafío.";
+    arcadeWhyPanel.replaceChildren(title, text, heading, list, note);
+  }
   let arcadeCleanup = () => {};
   let arcadeTimers = [];
   let arcadeAnimationFrame = 0;
@@ -218,6 +251,9 @@
 
   function startArcadeGame(game, language) {
     clearArcadeRun();
+    currentArcadeGame = game;
+    renderArcadeExplanation(game);
+    showArcadeTab("play");
     arcadeLanguage.textContent = `${language.toUpperCase()} / MINI GAME`;
     arcadeActions.replaceChildren();
     arcadeHint.textContent = "ESC para cerrar · Juegos de demostración de Pulso Digital.";
@@ -482,14 +518,18 @@
 
     if (game === "invaders") {
       arcadeTitle.textContent = "Pixel Invaders";
-      arcadeInstructions.textContent = "Mové tu nave con ← → o A/D y dispará con espacio. En móvil, usá los controles de abajo.";
+      arcadeInstructions.textContent = "Derribá invasores, alcanzá los objetivos y sobreviví a oleadas cada vez más numerosas. En el nivel 3 llegan grupos de refuerzos mucho más seguido. En móvil, mantené los controles o usá dos dedos a la vez.";
       const canvas = document.createElement("canvas");
       canvas.width = 480; canvas.height = 260;
       canvas.className = "arcade-game-canvas";
+      canvas.setAttribute("aria-label", "Juego Pixel Invaders. Mové la nave y dispará a los invasores.");
       const ctx = canvas.getContext("2d");
       const controls = document.createElement("div");
       controls.className = "arcade-touch-controls arcade-invaders-controls";
-      let player = { x: 232, y: 226 }, bullets = [], enemies = [], score = 0, over = false, lastSpawn = 0, keys = {};
+      let player = { x: 232, y: 226 }, bullets = [], enemies = [], score = 0, over = false, won = false, lastSpawn = 0, keys = {};
+      let level = 1, levelBannerUntil = 0, lastTouchShot = 0, previous = performance.now();
+      const levelGoals = [100, 250, 450];
+      const levelNames = ["NIVEL 1", "NIVEL 2", "NIVEL 3"];
       const touchHeld = { left: false, right: false, fire: false };
       const makeHoldButton = (label, actionName, extra = "") => {
         const btn = arcadeButton(label, () => {}, extra);
@@ -499,9 +539,7 @@
           event.preventDefault();
           touchHeld[actionName] = true;
           btn.classList.add("is-pressed");
-          if (event.pointerId !== undefined && btn.setPointerCapture) {
-            try { btn.setPointerCapture(event.pointerId); } catch (_) {}
-          }
+          if (event.pointerId !== undefined && btn.setPointerCapture) { try { btn.setPointerCapture(event.pointerId); } catch (_) {} }
           if (actionName === "fire") shoot();
         };
         const stop = (event) => {
@@ -519,35 +557,74 @@
       const fire = makeHoldButton("✦ DISPARAR", "fire", "arcade-fire-control");
       const moveGroup = document.createElement("div");
       moveGroup.className = "arcade-invaders-movement";
-      moveGroup.append(left, right);
-      controls.append(moveGroup, fire);
-      function spawn() { enemies.push({ x: 18 + Math.random() * 430, y: -12, speed: 0.55 + Math.random() * 0.65 }); }
-      function shoot() { if (!over) bullets.push({ x: player.x + 7, y: player.y - 7 }); }
-      for (let i = 0; i < 5; i++) enemies.push({ x: 35 + i * 88, y: 28 + (i % 2) * 24, speed: .35 + i * .06 });
+      moveGroup.append(left, right); controls.append(moveGroup, fire);
+      const levelInfo = arcadeScore("NIVEL 1 · OBJETIVO: 100 PUNTOS");
+      function currentGoal() { return levelGoals[level - 1]; }
+      function speedFactor() { return [1, 1.22, 1.48][level - 1]; }
+      function spawn() {
+        const factor = speedFactor();
+        enemies.push({ x: 18 + Math.random() * 430, y: -12, speed: (0.48 + Math.random() * 0.35) * factor, drift: (Math.random() < .5 ? -1 : 1) * (0.12 + Math.random() * .13) * factor });
+      }
+      // Cada nivel suma una oleada inicial mayor y refuerzos más frecuentes.
+      // En el tercer nivel salen grupos de invasores para que el final sea mucho más intenso.
+      function spawnReinforcements() {
+        const count = level === 3 ? (Math.random() < 0.45 ? 3 : 2) : level === 2 && Math.random() < 0.25 ? 2 : 1;
+        for (let i = 0; i < count; i++) spawn();
+      }
+      function shoot() { if (!over && !won) bullets.push({ x: player.x + 7, y: player.y - 7 }); }
+      function seedWave() {
+        const factor = speedFactor();
+        const waveSizes = [6, 11, 18];
+        const count = waveSizes[level - 1];
+        for (let i = 0; i < count; i++) {
+          const columns = level === 3 ? 9 : level === 2 ? 7 : 6;
+          const col = i % columns;
+          const row = Math.floor(i / columns);
+          const x = 22 + col * (436 / Math.max(1, columns - 1));
+          const y = 20 + row * 22;
+          enemies.push({ x, y, speed: (0.30 + (i % 4) * .055) * factor, drift: (i % 2 ? 1 : -1) * (0.1 + (i % 3) * .05) * factor });
+        }
+      }
+      seedWave();
+      function updateLevel() {
+        const nextLevel = score >= levelGoals[2] ? 4 : score >= levelGoals[1] ? 3 : score >= levelGoals[0] ? 2 : 1;
+        if (nextLevel > level) {
+          if (nextLevel === 4) { won = true; return; }
+          level = nextLevel;
+          levelBannerUntil = performance.now() + 1800;
+          seedWave();
+        }
+      }
       const keydown = (e) => {
         if (["ArrowLeft","ArrowRight"," ","a","A","d","D"].includes(e.key)) e.preventDefault();
         keys[e.key.toLowerCase()] = true;
         if (e.key === " ") shoot();
       };
       const keyup = (e) => { keys[e.key.toLowerCase()] = false; };
-      window.addEventListener("keydown", keydown);
-      window.addEventListener("keyup", keyup);
-      let previous = performance.now();
-      let lastTouchShot = 0;
+      window.addEventListener("keydown", keydown); window.addEventListener("keyup", keyup);
       function draw(now) {
-        if (over || !arcadeDialog.open) return;
+        if (over || won || !arcadeDialog.open) return;
         const dt = Math.min(34, now - previous); previous = now;
-        if (keys.arrowleft || keys.a || touchHeld.left) player.x -= .22 * dt;
-        if (keys.arrowright || keys.d || touchHeld.right) player.x += .22 * dt;
+        const factor = speedFactor();
+        if (keys.arrowleft || keys.a || touchHeld.left) player.x -= .22 * factor * dt;
+        if (keys.arrowright || keys.d || touchHeld.right) player.x += .22 * factor * dt;
         player.x = Math.max(5, Math.min(462, player.x));
         if (touchHeld.fire && now - lastTouchShot > 230) { shoot(); lastTouchShot = now; }
-        if (now - lastSpawn > 1700) { spawn(); lastSpawn = now; }
-        bullets.forEach(b => b.y -= .42 * dt);
-        enemies.forEach(e => e.y += e.speed * dt * .045);
+        const spawnInterval = [1450, 900, 520][level - 1];
+        if (now - lastSpawn > spawnInterval) { spawnReinforcements(); lastSpawn = now; }
+        bullets.forEach(b => b.y -= .42 * factor * dt);
+        enemies.forEach(e => {
+          e.y += e.speed * dt * .045;
+          e.x += e.drift * dt * .045;
+          if (e.x < 12 || e.x > 468) e.drift *= -1;
+        });
         bullets = bullets.filter(b => b.y > -5);
         enemies = enemies.filter(e => {
           const hit = bullets.some(b => Math.abs(b.x - e.x) < 17 && Math.abs(b.y - e.y) < 15);
-          if (hit) { bullets = bullets.filter(b => !(Math.abs(b.x-e.x)<17 && Math.abs(b.y-e.y)<15)); score += 10; }
+          if (hit) {
+            bullets = bullets.filter(b => !(Math.abs(b.x-e.x)<17 && Math.abs(b.y-e.y)<15));
+            score += 10; updateLevel();
+          }
           if (e.y > 246) over = true;
           return !hit;
         });
@@ -558,20 +635,31 @@
         enemies.forEach(e => { ctx.fillRect(e.x-9,e.y-5,18,10); ctx.fillRect(e.x-5,e.y-9,4,4); ctx.fillRect(e.x+3,e.y-9,4,4); });
         ctx.fillStyle = "#f8dadd"; bullets.forEach(b => ctx.fillRect(b.x,b.y,3,8));
         ctx.fillStyle = "#d7646d"; ctx.fillRect(player.x-10,player.y,22,10); ctx.fillRect(player.x-4,player.y-8,10,9);
-        ctx.fillStyle = "#f7f1f2"; ctx.font = "12px monospace"; ctx.fillText(`SCORE ${score}`,10,16);
-        if (over) {
-          ctx.fillStyle = "rgba(0,0,0,.78)"; ctx.fillRect(0,0,480,260);
-          ctx.fillStyle = "#f08b94"; ctx.font = "bold 22px monospace"; ctx.fillText("GAME OVER",160,122);
-          ctx.font = "14px monospace"; ctx.fillText(`SCORE ${score}`,195,148);
-          setArcadeActions(arcadeButton("VOLVER A JUGAR", replay));
-          return;
+        ctx.fillStyle = "#f7f1f2"; ctx.font = "12px monospace"; ctx.fillText(`SCORE ${score}`,10,16); ctx.fillText(`${levelNames[level-1]} · OBJ ${currentGoal()}`,340,16);
+        if (levelBannerUntil > now) {
+          ctx.fillStyle = "rgba(0,0,0,.72)"; ctx.fillRect(70,98,340,55);
+          ctx.fillStyle = "#f08b94"; ctx.font = "bold 19px monospace"; ctx.fillText(`${levelNames[level-1]} DESBLOQUEADO`,105,121);
+          ctx.font = "12px monospace"; ctx.fillText("¡Más velocidad! Seguí disparando",113,141);
         }
+        if (over) {
+          ctx.fillStyle = "rgba(0,0,0,.82)"; ctx.fillRect(0,0,480,260);
+          ctx.fillStyle = "#f08b94"; ctx.font = "bold 22px monospace"; ctx.fillText("GAME OVER",160,122);
+          ctx.font = "14px monospace"; ctx.fillText(`SCORE ${score} · NIVEL ${level}`,135,148);
+          setArcadeActions(arcadeButton("VOLVER A JUGAR", replay)); return;
+        }
+        if (won) {
+          ctx.fillStyle = "rgba(0,0,0,.82)"; ctx.fillRect(0,0,480,260);
+          ctx.fillStyle = "#f08b94"; ctx.font = "bold 21px monospace"; ctx.fillText("¡GALAXIA SALVADA!",135,115);
+          ctx.font = "14px monospace"; ctx.fillText(`PUNTAJE FINAL ${score}`,155,143);
+          setArcadeActions(arcadeButton("JUGAR OTRA VEZ", replay)); return;
+        }
+        levelInfo.textContent = `${levelNames[level-1]} · OBJETIVO: ${currentGoal()} PUNTOS · SCORE: ${score}`;
         arcadeAnimationFrame = requestAnimationFrame(draw);
       }
-      setArcadeStage(canvas, controls, arcadeScore("DERRIBÁ LOS PÍXELES · +10 PUNTOS"));
+      setArcadeStage(canvas, controls, levelInfo);
       setArcadeActions(arcadeButton("REINICIAR PARTIDA", replay));
       arcadeAnimationFrame = requestAnimationFrame(draw);
-      arcadeCleanup = () => { over = true; window.removeEventListener("keydown", keydown); window.removeEventListener("keyup", keyup); };
+      arcadeCleanup = () => { over=true; window.removeEventListener("keydown", keydown); window.removeEventListener("keyup", keyup); };
       return;
     }
 
@@ -666,6 +754,8 @@
   }
 
   if (arcadeDialog) {
+    arcadeTabPlay?.addEventListener("click", () => showArcadeTab("play"));
+    arcadeTabWhy?.addEventListener("click", () => showArcadeTab("why"));
     document.querySelectorAll("[data-game]").forEach((button) => {
       button.addEventListener("click", () => {
         if (typeof arcadeDialog.showModal === "function") arcadeDialog.showModal();

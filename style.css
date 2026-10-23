@@ -22,7 +22,7 @@
 }
 
 
-/* Intro de bienvenida: el rojo recorre la silueta del isotipo. */
+/* Intro CRT: la pantalla roja se contrae y entrega el último destello al isotipo. */
 .intro-screen {
   position: fixed;
   inset: 0;
@@ -30,14 +30,12 @@
   display: grid;
   place-items: center;
   overflow: hidden;
-  background:
-    radial-gradient(circle at 50% 45%, rgba(126, 41, 52, .24), transparent 34%),
-    linear-gradient(145deg, #180e11 0%, #100f10 58%, #090909 100%);
-  /* Visible dès le premier rendu : évite que la page apparaisse avant le logo. */
+  isolation: isolate;
+  background: #080808;
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-  transition: opacity .55s ease, visibility .55s ease;
+  transition: opacity .42s ease, visibility .42s ease;
 }
 .intro-screen.is-visible {
   opacity: 1;
@@ -47,17 +45,34 @@
 .intro-screen.is-leaving {
   opacity: 0;
   visibility: hidden;
+  pointer-events: none;
+}
+.intro-red-field {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background:
+    radial-gradient(ellipse at center, rgba(255, 105, 119, .42) 0%, transparent 58%),
+    linear-gradient(135deg, var(--accent-strong) 0%, var(--accent) 52%, var(--accent-dark) 100%);
+  transform-origin: center center;
+  box-shadow: inset 0 0 12vw rgba(45, 0, 7, .28);
+  will-change: transform, opacity, border-radius;
+}
+.intro-screen.is-visible .intro-red-field {
+  animation: intro-crt-poweroff 1.72s cubic-bezier(.76, 0, .24, 1) .06s forwards;
 }
 .intro-lockup {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0;
-  transform: translateY(8px);
+  transform: translateY(8px) scale(.98);
   opacity: 0;
 }
 .intro-screen.is-visible .intro-lockup {
-  animation: intro-lockup-in .55s cubic-bezier(.2,.75,.25,1) .08s forwards;
+  animation: intro-lockup-in .48s cubic-bezier(.2,.75,.25,1) 1.12s forwards;
 }
 .intro-logo-wrap {
   position: relative;
@@ -75,7 +90,10 @@
   object-fit: contain;
 }
 .intro-logo-base {
-  filter: drop-shadow(0 0 18px rgba(189, 75, 85, .16));
+  filter: drop-shadow(0 0 0 rgba(215, 100, 109, 0));
+}
+.intro-screen.is-visible .intro-logo-base {
+  animation: intro-logo-glow .7s ease-out 1.58s both;
 }
 .intro-logo-sweep {
   opacity: 0;
@@ -100,7 +118,7 @@
   filter: drop-shadow(0 0 7px rgba(215, 100, 109, .6));
 }
 .intro-screen.is-visible .intro-logo-sweep {
-  animation: intro-red-sweep 1.35s ease-in-out .35s forwards;
+  animation: intro-red-sweep 1.05s ease-in-out 1.52s forwards;
 }
 .intro-brand {
   margin: 0;
@@ -134,7 +152,41 @@
   transform-origin: left center;
 }
 .intro-screen.is-visible .intro-progress::after {
-  animation: intro-progress 1.85s cubic-bezier(.55,.05,.35,1) .12s forwards;
+  animation: intro-progress .7s ease-out 1.55s forwards;
+}
+@keyframes intro-crt-poweroff {
+  0%, 32% {
+    transform: scale(1, 1);
+    opacity: 1;
+    border-radius: 0;
+  }
+  48% {
+    transform: scale(1, .004);
+    opacity: 1;
+    border-radius: 50%;
+  }
+  62% {
+    transform: scale(.006, .004);
+    opacity: 1;
+    border-radius: 50%;
+  }
+  73% {
+    transform: translateY(-44px) scale(.006, .006);
+    opacity: 1;
+    border-radius: 50%;
+    filter: brightness(1.7);
+  }
+  86%, 100% {
+    transform: translateY(-44px) scale(0, 0);
+    opacity: 0;
+    border-radius: 50%;
+    filter: brightness(2.2);
+  }
+}
+@keyframes intro-logo-glow {
+  0% { filter: drop-shadow(0 0 0 rgba(215, 100, 109, 0)); }
+  45% { filter: drop-shadow(0 0 28px rgba(215, 100, 109, .95)); }
+  100% { filter: drop-shadow(0 0 13px rgba(189, 75, 85, .48)); }
 }
 @keyframes intro-lockup-in {
   from { opacity: 0; transform: translateY(8px) scale(.97); }
@@ -149,7 +201,26 @@
 @keyframes intro-progress {
   to { transform: scaleX(1); }
 }
+@media (prefers-reduced-motion: reduce) {
+  .intro-screen.is-visible .intro-red-field {
+    animation: none;
+    opacity: 0;
+    transform: scale(0);
+  }
+  .intro-screen.is-visible .intro-lockup {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .intro-screen.is-visible .intro-logo-base,
+  .intro-screen.is-visible .intro-logo-sweep,
+  .intro-screen.is-visible .intro-progress::after {
+    animation: none;
+  }
+  .intro-screen.is-visible .intro-progress::after { transform: scaleX(1); }
+}
 /* Cuando se muestra la intro, los dispositivos entran después de ella. */
+
 body.intro-sequence .laptop-device { animation-delay: 2.65s; }
 body.intro-sequence .phone-device { animation-delay: 3.65s; }
 
@@ -1449,4 +1520,29 @@ body:not(.intro-sequence) .phone-image-block {
 @media (max-width: 380px) and (pointer: coarse) {
   .arcade-snake-dpad { grid-template-columns: repeat(3, minmax(48px, 62px)); }
   .arcade-invaders-controls .arcade-btn { padding-inline: 8px; font-size: .95rem; }
+}
+
+
+/* Logos tecnológicos y pestaña didáctica del arcade */
+.arcade-logo { padding: 8px; }
+.arcade-logo img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.arcade-python img { filter: drop-shadow(0 0 5px rgba(55,118,171,.25)); }
+.arcade-js img { filter: drop-shadow(0 0 5px rgba(247,223,30,.18)); }
+.arcade-modal-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 16px; }
+.arcade-tab { border: 1px solid #493034; border-radius: 3px; padding: 11px 14px; background: #171214; color: #bdb2b5; font: 700 .72rem/1.3 "Courier New", monospace; letter-spacing: .045em; cursor: pointer; }
+.arcade-tab.is-active, .arcade-tab[aria-selected="true"] { border-color: #d7646d; background: #3b1b20; color: #fff1f2; box-shadow: inset 0 -2px #d7646d; }
+.arcade-tab:focus-visible { outline: 2px solid #f08b94; outline-offset: 2px; }
+.arcade-why-panel { min-height: 235px; padding: clamp(18px, 4vw, 28px); border: 1px solid rgba(215,100,109,.28); border-radius: 4px; background: linear-gradient(145deg, rgba(215,100,109,.08), transparent 65%), #090909; color: #d5cacc; line-height: 1.75; }
+.arcade-why-panel[hidden] { display: none !important; }
+.arcade-why-panel h3 { margin: 0 0 12px; color: #fff4f5; font-size: 1.25rem; }
+.arcade-why-panel p { margin: 0 0 15px; }
+.arcade-why-panel h4 { margin: 18px 0 8px; color: #f08b94; font: 800 .78rem/1.4 "Courier New", monospace; letter-spacing: .08em; text-transform: uppercase; }
+.arcade-why-panel ul { display: grid; gap: 7px; margin: 0 0 18px; padding-left: 20px; }
+.arcade-why-panel li::marker { color: #d7646d; }
+.arcade-why-note { padding-top: 12px; border-top: 1px solid rgba(215,100,109,.2); color: #93878a; font-size: .78rem; }
+.arcade-game-stage[hidden], .arcade-dialog-actions[hidden] { display: none !important; }
+@media (max-width: 480px) {
+  .arcade-modal-tabs { display: grid; grid-template-columns: 1fr; }
+  .arcade-tab { min-height: 44px; }
+  .arcade-why-panel { font-size: .88rem; }
 }

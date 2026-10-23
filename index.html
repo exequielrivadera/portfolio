@@ -17,13 +17,14 @@
 </head>
 <body class="intro-sequence">
   <div class="intro-screen is-visible" id="intro-screen" aria-hidden="true">
+    <div class="intro-red-field" aria-hidden="true"></div>
     <div class="intro-lockup">
       <div class="intro-logo-wrap">
         <img class="intro-logo-base" src="assets/favicon_parainicio.png" alt="">
         <span class="intro-logo-sweep" aria-hidden="true"></span>
       </div>
-      <p class="intro-brand">PULSO <span>DIGITAL</span></p>
-      <p class="intro-tagline">IDEAS EN MOVIMIENTO</p>
+      <!-- <p class="intro-brand">PULSO <span>DIGITAL</span></p>
+      <p class="intro-tagline">IDEAS EN MOVIMIENTO</p> -->
       <span class="intro-progress" aria-hidden="true"></span>
     </div>
   </div>
@@ -251,42 +252,42 @@
         <div class="arcade-grid" aria-label="Minijuegos por tecnología">
           <button class="arcade-card" type="button" data-game="snake" data-language="Python">
             <span class="arcade-card-top"><span class="arcade-led"></span> GAME 01</span>
-            <span class="arcade-logo arcade-python" aria-hidden="true">Py</span>
+            <span class="arcade-logo arcade-python"><img src="assets/tech-logos/python.svg" alt="Logo de Python"></span>
             <span class="arcade-card-title">Pixel Snake</span>
             <span class="arcade-card-description">Comé píxeles, crecé y evitá chocarte.</span>
             <span class="arcade-card-bottom">PYTHON <span>JUGAR ↗</span></span>
           </button>
           <button class="arcade-card" type="button" data-game="reaction" data-language="JavaScript">
             <span class="arcade-card-top"><span class="arcade-led"></span> GAME 02</span>
-            <span class="arcade-logo arcade-js" aria-hidden="true">JS</span>
+            <span class="arcade-logo arcade-js"><img src="assets/tech-logos/javascript.svg" alt="Logo de JavaScript"></span>
             <span class="arcade-card-title">Pulso de reacción</span>
             <span class="arcade-card-description">Esperá la señal roja y reaccioná rápido.</span>
             <span class="arcade-card-bottom">JAVASCRIPT <span>JUGAR ↗</span></span>
           </button>
           <button class="arcade-card" type="button" data-game="memory" data-language="CSS">
             <span class="arcade-card-top"><span class="arcade-led"></span> GAME 03</span>
-            <span class="arcade-logo arcade-css" aria-hidden="true">#</span>
+            <span class="arcade-logo arcade-css"><img src="assets/tech-logos/css3.svg" alt="Logo de CSS3"></span>
             <span class="arcade-card-title">Pixel Match</span>
             <span class="arcade-card-description">Encontrá las parejas antes de que se acabe el tiempo.</span>
             <span class="arcade-card-bottom">CSS <span>JUGAR ↗</span></span>
           </button>
           <button class="arcade-card" type="button" data-game="code" data-language="HTML">
             <span class="arcade-card-top"><span class="arcade-led"></span> GAME 04</span>
-            <span class="arcade-logo arcade-html" aria-hidden="true">&lt;/&gt;</span>
+            <span class="arcade-logo arcade-html"><img src="assets/tech-logos/html5.svg" alt="Logo de HTML5"></span>
             <span class="arcade-card-title">Code Breaker</span>
             <span class="arcade-card-description">Ordená la estructura y desbloqueá el código.</span>
             <span class="arcade-card-bottom">HTML5 <span>JUGAR ↗</span></span>
           </button>
           <button class="arcade-card" type="button" data-game="invaders" data-language="C / C++">
             <span class="arcade-card-top"><span class="arcade-led"></span> GAME 05</span>
-            <span class="arcade-logo arcade-cpp" aria-hidden="true">C++</span>
+            <span class="arcade-logo arcade-cpp"><img src="assets/tech-logos/cpp.svg" alt="Logo de C++"></span>
             <span class="arcade-card-title">Pixel Invaders</span>
             <span class="arcade-card-description">Defendé tu posición y sumá puntos.</span>
             <span class="arcade-card-bottom">C / C++ <span>JUGAR ↗</span></span>
           </button>
           <button class="arcade-card" type="button" data-game="sql" data-language="MySQL">
             <span class="arcade-card-top"><span class="arcade-led"></span> GAME 06</span>
-            <span class="arcade-logo arcade-sql" aria-hidden="true">DB</span>
+            <span class="arcade-logo arcade-sql"><img src="assets/tech-logos/mysql.svg" alt="Logo de MySQL"></span>
             <span class="arcade-card-title">Detective de datos</span>
             <span class="arcade-card-description">Encontrá el registro correcto con una consulta.</span>
             <span class="arcade-card-bottom">MYSQL <span>JUGAR ↗</span></span>
@@ -340,7 +341,12 @@
         <p class="arcade-dialog-kicker" id="arcade-language">MINIJUEGO</p>
         <h2 id="arcade-dialog-title">Pixel Arcade</h2>
         <p class="arcade-dialog-instructions" id="arcade-instructions">Prepará tus reflejos.</p>
-        <div class="arcade-game-stage" id="arcade-game-stage" aria-live="polite"></div>
+        <div class="arcade-modal-tabs" role="tablist" aria-label="Contenido del minijuego">
+          <button class="arcade-tab is-active" id="arcade-tab-play" type="button" role="tab" aria-selected="true" aria-controls="arcade-game-stage">JUGAR</button>
+          <button class="arcade-tab" id="arcade-tab-why" type="button" role="tab" aria-selected="false" aria-controls="arcade-why-panel">¿POR QUÉ ESTE LENGUAJE?</button>
+        </div>
+        <div class="arcade-game-stage" id="arcade-game-stage" role="tabpanel" aria-labelledby="arcade-tab-play" aria-live="polite"></div>
+        <div class="arcade-why-panel" id="arcade-why-panel" role="tabpanel" aria-labelledby="arcade-tab-why" hidden></div>
         <div class="arcade-dialog-actions" id="arcade-dialog-actions"></div>
         <p class="arcade-dialog-hint" id="arcade-hint">ESC para cerrar · Cada partida dura unos segundos.</p>
       </div>
