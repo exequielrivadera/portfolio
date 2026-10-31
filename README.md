@@ -1,6 +1,6 @@
 # Portfolio — Pulso Digital
 
-Portfolio estático en HTML, CSS y JavaScript. Incluye capturas reales de cinco sitios y una ficha descriptiva para DocuCentral, aplicación de escritorio sin demo web pública.
+Portfolio estático en HTML, CSS y JavaScript. Incluye capturas de siete sitios web publicados y una ficha descriptiva para DocuCentral, aplicación de escritorio sin demo web pública.
 
 ## Ejecutar localmente
 
@@ -19,6 +19,8 @@ Abrir `index.html` en el navegador o usar Live Server desde VS Code.
 - Distribuidora: https://exequielrivadera.github.io/proyectobebidas/
 - Pastelería: https://exequielrivadera.github.io/pasteleria/
 - Indumentaria: https://exequielrivadera.github.io/proyectoindumentaria/
+- Clínica Salud Integral: https://exequielrivadera.github.io/proyectoparaclinica/
+- Web Noticias: https://exequielrivadera.github.io/proyectowebnoticias/
 
 DocuCentral se presenta como proyecto de software de escritorio, sin enlace de demo. No se enlazan repositorios originales.
 
